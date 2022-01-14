@@ -1,12 +1,39 @@
-import React, { useState } from 'react';
+import React, {
+  useImperativeHandle,
+  useState,
+  ForwardRefRenderFunction as FR,
+  forwardRef,
+} from 'react';
 import { FiPlus } from 'react-icons/fi';
 
 import { AddChurrasModal } from 'components/AddChurrasModal';
 
 import * as S from './styles';
 
-export const AddChurrasFloatButton = () => {
+interface AddChurrasFloatButtonProps {
+  ref: React.MutableRefObject<HTMLDivElement>;
+}
+
+export interface FloatButtonRefHandles {
+  handleClick: () => void;
+}
+
+const AddChurrasFloatButtonBase: FR<
+  FloatButtonRefHandles,
+  AddChurrasFloatButtonProps
+> = (props, ref) => {
   const [isOpen, setIsOpen] = useState(false);
+
+  useImperativeHandle(ref, () => {
+    return {
+      handleClick,
+    };
+  });
+
+  const handleClick = () => {
+    setIsOpen(true);
+  };
+
   return (
     <>
       <S.Container onClick={() => setIsOpen(true)}>
@@ -21,3 +48,5 @@ export const AddChurrasFloatButton = () => {
     </>
   );
 };
+
+export const AddChurrasFloatButton = forwardRef(AddChurrasFloatButtonBase);

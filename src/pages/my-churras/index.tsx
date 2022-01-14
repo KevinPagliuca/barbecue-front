@@ -8,17 +8,17 @@ import {
 import { ChurrasCard, ChurrasCardSkeleton } from 'components/ChurrasCard';
 import { Layout } from 'components/Layout';
 import { theme } from 'global/theme';
-import { useChurras } from 'hooks/useChurras';
-import * as S from 'styles/DashboardStyles';
+import { useChurrasByUser } from 'hooks/useChurras';
+import * as S from 'styles/MyChurrasStyles';
 import { withSSRAuth } from 'utils/withSSRAuth';
 
-export default function Dashboard() {
-  const { churrasList, isLoading } = useChurras({});
+export default function MyChurras() {
+  const { churrasList, isLoading } = useChurrasByUser({});
   const addChurrasBtnRef = useRef<FloatButtonRefHandles>(null);
 
   return (
     <Layout
-      title="Dashboard"
+      title="Meus churras"
       pageTitle="Agenda Churras | Dashboard"
       wrapperBackground={theme.colors.background}
     >
@@ -31,19 +31,16 @@ export default function Dashboard() {
             ))}
           {!isLoading && churrasList?.length === 0 && (
             <S.NoChurras onClick={() => addChurrasBtnRef.current.handleClick()}>
-              <span>
-                Ainda não possuímos nenhum churras cadastrado em nosso sistema,
-                seja o primeiro!
-              </span>
+              <span>Você não possui nenhum churras cadastrado.</span>
               <div>
                 <span>
                   <GiBarbecue size={36} className="fixed" />
                 </span>
-                <strong>Agendar primeiro churras 🔥🤩</strong>
+                <strong>Cadastrar meu primeiro churras</strong>
               </div>
             </S.NoChurras>
           )}
-          {isLoading && <ChurrasCardSkeleton render={6} />}
+          {isLoading && <ChurrasCardSkeleton render={9} />}
         </S.ContentContainer>
       </S.Container>
     </Layout>

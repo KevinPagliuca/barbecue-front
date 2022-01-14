@@ -1,7 +1,7 @@
 import { darken } from 'polished';
 import styled, { css } from 'styled-components';
 
-export const Container = styled.a`
+export const Container = styled.div`
   ${({ theme }) => css`
     display: flex;
     flex-direction: column;
@@ -10,10 +10,10 @@ export const Container = styled.a`
     box-shadow: 0 2px 0.5rem rgba(0, 0, 0, 0.15);
     width: 18.75rem;
     border-radius: 6px;
+    position: relative;
     transition: all 0.15s;
 
     &:hover {
-      cursor: pointer;
       box-shadow: 0 2px 1rem rgba(0, 0, 0, 0.2);
       background: ${darken(0.03, theme.colors.white)};
     }
@@ -62,6 +62,7 @@ export const ChurrasValueAndParticipants = styled.div`
     display: flex;
     align-items: center;
     font: 700 12px ${({ theme }) => theme.fonts.titles};
+    color: ${({ theme }) => theme.colors.secondary};
 
     svg {
       margin-right: 0.25rem;
@@ -69,4 +70,43 @@ export const ChurrasValueAndParticipants = styled.div`
   }
 `;
 
-export const ContentContainer = styled.div``;
+export const CurrasHost = styled.div`
+  ${({ theme }) => css`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: absolute;
+    top: 0.5rem;
+
+    strong {
+      font: 700 12px ${theme.fonts.titles};
+      color: ${theme.colors.titles};
+    }
+
+    span {
+      margin-left: 0.25rem;
+      font: 700 12px ${theme.fonts.texts};
+      color: ${darken(0.15, theme.colors.primary)};
+    }
+  `}
+`;
+
+export const ParticipButtton = styled.div`
+  ${({ theme }) => css`
+    margin: 1rem auto 0;
+    font: 700 12px ${theme.fonts.texts};
+    color: ${darken(0.15, theme.colors.primary)};
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  `}
+`;
+
+export const ContentContainer = styled.a`
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+`;

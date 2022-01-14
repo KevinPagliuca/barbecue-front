@@ -2,6 +2,7 @@ import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import 'react-toastify/dist/ReactToastify.css';
 import React from 'react';
 import { QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
 import { ToastContainer, Flip } from 'react-toastify';
 
 import { AppProps } from 'next/app';
@@ -23,6 +24,7 @@ function MyApp({ Component, pageProps }: AppProps) {
             position="top-center"
             transition={Flip}
           />
+          <ReactQueryDevtools />
         </LoaderProvider>
       </AuthProvider>
     </QueryClientProvider>

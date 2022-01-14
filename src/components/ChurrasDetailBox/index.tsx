@@ -40,7 +40,7 @@ export const ChurrasDetailBox = ({ churras }: ChurrasDetailBoxProps) => {
       <ConfirmationModal
         isOpen={confirmationModalOpen}
         onRequestClose={() => setConfirmationModalOpen(false)}
-        message="Tem certeza que deseja excluir deste churras?"
+        message="Tem certeza que deseja excluir este churras?"
         title="Excluir churras"
         onConfirm={() => handleConfirmDelete()}
       />
@@ -48,7 +48,6 @@ export const ChurrasDetailBox = ({ churras }: ChurrasDetailBoxProps) => {
         <S.HeaderContainer>
           <div>
             <S.Title>{churras.title}</S.Title>
-            <S.Description>{churras.description}</S.Description>
           </div>
           <div className="valueAndParticipants">
             <span>

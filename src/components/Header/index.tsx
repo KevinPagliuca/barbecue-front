@@ -1,4 +1,5 @@
 import React from 'react';
+import { GiBarbecue } from 'react-icons/gi';
 import {
   RiDashboardLine,
   RiLogoutCircleRLine,
@@ -32,6 +33,20 @@ export const Header = ({ title, headerHeight }: HeaderProps) => {
                 Dashboard
               </a>
             </ActiveLink>
+
+            <ActiveLink href="/my-churras" activeClassName="active-link">
+              <a>
+                <GiBarbecue size={20} />
+                Meus churras
+              </a>
+            </ActiveLink>
+
+            {/* <ActiveLink href="/schedules" activeClassName="active-link">
+              <a>
+                <RiCalendarCheckLine size={20} />
+                Minha agenda
+              </a>
+            </ActiveLink> */}
 
             <ActiveLink href="/profile" activeClassName="active-link">
               <a>

@@ -16,10 +16,34 @@ interface IUseChurrasByIdProps {
   options?: UseQueryOptions;
 }
 
+interface IUseChurrasByUserProps {
+  options?: UseQueryOptions;
+}
+
 export const useChurras = ({ options }: IUseChurrasProps) => {
   const { data: items, ...rest } = useQuery(
     ['Churras'],
     churrasService.getAll,
+    {
+      ...options,
+      staleTime: 1000 * 60 * 5, // 5 minutes,
+    }
+  );
+
+  const churrasList = items as IChurras[];
+
+  const itemsWithCorrectDateFix: IChurras[] = churrasList?.map((item) => ({
+    ...item,
+    date: add(new Date(item.date), { days: 1 }) as unknown as string,
+  }));
+
+  return { churrasList: itemsWithCorrectDateFix, ...rest };
+};
+
+export const useChurrasByUser = ({ options }: IUseChurrasByUserProps) => {
+  const { data: items, ...rest } = useQuery(
+    ['Churras', 'user'],
+    churrasService.getAllByUser,
     {
       ...options,
       staleTime: 1000 * 60 * 5, // 5 minutes,

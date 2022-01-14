@@ -54,7 +54,7 @@ export const AuthProvider: React.FC = ({ children }) => {
       const { user } = await authService.signIn(payload);
       setUser(user);
       toast.success('Autenticado com sucesso!');
-      router.push('/dashboard');
+      router.push('/my-churras');
     } catch (error) {
       toast.error(error.message);
     }
@@ -66,7 +66,7 @@ export const AuthProvider: React.FC = ({ children }) => {
       setUser(user);
       toast.success('Cadastrado com sucesso!');
       toast.success('Autenticado com sucesso!');
-      router.push('/dashboard');
+      router.push('/my-churras');
     } catch (error) {
       toast.error(error.message);
     }

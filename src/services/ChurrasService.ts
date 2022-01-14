@@ -21,6 +21,19 @@ class ChurrasService {
     }
   }
 
+  async getAllByUser() {
+    try {
+      const { data } = await client.get<IChurras[]>('/churras/user');
+      return data;
+    } catch (err) {
+      const error = err as AxiosError;
+      if (error.response.data.message) {
+        throw new Error(error.response.data.message);
+      }
+      throw new Error('Ocorreu um erro inesperado, tente novamente!');
+    }
+  }
+
   async getById(id: string) {
     try {
       const { data } = await client.get<IChurras>(`/churras/${id}`);

@@ -4,8 +4,9 @@ import { RiMoneyDollarCircleFill } from 'react-icons/ri';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 
-import router from 'next/router';
+import Link from 'next/link';
 
+import { useAuth } from 'contexts/AuthContext';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { theme } from 'global/theme';
@@ -19,6 +20,7 @@ interface ChurrasCardProps {
 }
 
 export const ChurrasCard = ({ churrasInfo }: ChurrasCardProps) => {
+  const { user } = useAuth();
   const shortDescription =
     churrasInfo.description.length > 50
       ? churrasInfo.description.slice(0, 50) + '...'
@@ -30,31 +32,48 @@ export const ChurrasCard = ({ churrasInfo }: ChurrasCardProps) => {
   );
 
   return (
-    <S.Container
-      onClick={() => router.push(`/churras-detail/${churrasInfo.id}`)}
-    >
-      <S.ChurrasDate>
-        {format(new Date(churrasInfo.date), "dd ' de ' MMMM 'de ' yyyy", {
-          locale: ptBR,
-        })}
-      </S.ChurrasDate>
-      <S.ChurrasIntent>{churrasInfo.title}</S.ChurrasIntent>
-      <S.ContentContainer>
-        <S.ChurrasDescription>
-          <strong>Descrição curta: </strong>
-          <p>{shortDescription}</p>
-        </S.ChurrasDescription>
-        <S.ChurrasValueAndParticipants>
-          <span>
-            <FiUsers color={theme.colors.primary} />
-            {churrasInfo.participants.length}
-          </span>
-          <span>
-            <RiMoneyDollarCircleFill color={theme.colors.primary} />
-            {formatToBRL(valueTotalRaised)}
-          </span>
-        </S.ChurrasValueAndParticipants>
-      </S.ContentContainer>
+    <S.Container>
+      <Link href={`/churras-detail/${churrasInfo.id}`} passHref>
+        <S.ContentContainer>
+          <S.ChurrasDate>
+            {format(new Date(churrasInfo.date), "dd ' de ' MMMM 'de ' yyyy", {
+              locale: ptBR,
+            })}
+          </S.ChurrasDate>
+          <S.ChurrasIntent>{churrasInfo.title}</S.ChurrasIntent>
+          <S.ChurrasDescription>
+            <strong>Descrição curta: </strong>
+            <p>{shortDescription}</p>
+          </S.ChurrasDescription>
+          <S.ChurrasValueAndParticipants>
+            <span>
+              <FiUsers color={theme.colors.primary} />
+              {churrasInfo.participants.length}
+            </span>
+            <span>
+              <RiMoneyDollarCircleFill color={theme.colors.primary} />
+              {formatToBRL(valueTotalRaised)}
+            </span>
+          </S.ChurrasValueAndParticipants>
+
+          {churrasInfo.user && (
+            <S.CurrasHost>
+              <strong>Anfitrião:</strong>
+              <span>
+                {churrasInfo?.user_id === user?.id
+                  ? 'Eu'
+                  : churrasInfo.user.name}
+              </span>
+            </S.CurrasHost>
+          )}
+        </S.ContentContainer>
+      </Link>
+
+      {/* {user?.id !== churrasInfo.user_id && (
+        <S.ParticipButtton>
+          <span>Pedir para participar</span>
+        </S.ParticipButtton>
+      )} */}
     </S.Container>
   );
 };

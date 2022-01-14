@@ -22,7 +22,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   if (token && userData) {
     return {
       redirect: {
-        destination: '/dashboard',
+        destination: '/my-churras',
         permanent: false,
       },
     };

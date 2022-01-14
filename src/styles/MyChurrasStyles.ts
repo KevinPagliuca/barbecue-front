@@ -75,12 +75,6 @@ export const NoChurras = styled.div`
         color: ${theme.colors.titles};
         text-align: center;
         margin-top: 1rem;
-        transition: all 0.15s;
-
-        &:hover {
-          cursor: pointer;
-          text-decoration: underline;
-        }
       }
     }
   `}
