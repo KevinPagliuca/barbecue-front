@@ -73,11 +73,11 @@ export const AuthProvider: React.FC = ({ children }) => {
   }, []);
 
   const handleSignOut = useCallback(async () => {
+    router.push('/');
     setUser(undefined);
     removeAuthentication();
     toast.success('Desconectado com sucesso, até a próxima!');
-    router.push('/');
-  }, []);
+  }, [user]);
 
   const handleUpdateUser = useCallback(
     async (payload: IUserUpdateRequestDTO) => {

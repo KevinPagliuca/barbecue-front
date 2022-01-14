@@ -27,7 +27,7 @@ export const formValues: IFormValue[] = [
     id: 'user-birthday',
     name: 'birthday',
     type: 'date',
-    max: '2001-01-01',
+    max: '2006-01-01',
     placeholder: 'Data de nascimento',
   },
   {

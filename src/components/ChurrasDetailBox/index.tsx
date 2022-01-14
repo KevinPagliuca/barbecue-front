@@ -6,6 +6,7 @@ import router from 'next/router';
 
 import { ConfirmationModal } from 'components/ConfirmationModal';
 import { ParticipantItem } from 'components/ParticipantItem';
+import { useAuth } from 'contexts/AuthContext';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { theme } from 'global/theme';
@@ -20,6 +21,7 @@ interface ChurrasDetailBoxProps {
 }
 
 export const ChurrasDetailBox = ({ churras }: ChurrasDetailBoxProps) => {
+  const { user } = useAuth();
   const { deleteChurras } = useDeleteChurras();
   const valueTotalRaised = churras.participants.reduce(
     (acc, participant) => acc + Number(participant.value),
@@ -80,9 +82,11 @@ export const ChurrasDetailBox = ({ churras }: ChurrasDetailBoxProps) => {
             </div>
           ))}
         </S.ParticipantsContainer>
-        <S.DeleteChurrasButton onClick={() => setConfirmationModalOpen(true)}>
-          Excluir Churras
-        </S.DeleteChurrasButton>
+        {user.id === churras.user_id && (
+          <S.DeleteChurrasButton onClick={() => setConfirmationModalOpen(true)}>
+            Excluir Churras
+          </S.DeleteChurrasButton>
+        )}
       </S.ContentContainer>
     </S.Container>
   );
