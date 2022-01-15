@@ -74,6 +74,10 @@ export const ChurrasDetailBox = ({
           </S.DateAndHour>
           <S.Location>{churras.location}</S.Location>
         </S.DateAndLocationContainer>
+        <S.Description>
+          <h1>Descrição</h1>
+          <p>{churras.description}</p>
+        </S.Description>
 
         <S.ParticipantsContainer>
           <h1>Participantes</h1>

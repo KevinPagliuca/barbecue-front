@@ -55,8 +55,21 @@ export const Title = styled.h1`
 
 export const Description = styled.p`
   ${({ theme }) => css`
-    font: 400 1rem ${theme.fonts.texts};
-    color: ${theme.colors.texts};
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+
+    h1 {
+      font: 600 1.25rem ${theme.fonts.titles};
+      color: ${theme.colors.gray};
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      font: 400 0.875rem ${theme.fonts.texts};
+      line-height: 110%;
+      color: ${theme.colors.texts};
+    }
   `}
 `;
 

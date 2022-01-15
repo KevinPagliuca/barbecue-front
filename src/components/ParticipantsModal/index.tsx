@@ -69,22 +69,6 @@ export const ParticipantsModal = ({
     }
   };
 
-  useEffect(() => {
-    if (isOpen) {
-      if (fields.length === 0) {
-        append({
-          name: '',
-          value: '',
-        });
-      }
-    } else {
-      fields.map((_, index) => {
-        remove(index);
-      });
-    }
-    formHelper.reset();
-  }, [isOpen]);
-
   const handleSelectRadio = ({
     index,
     onChange,
@@ -100,6 +84,24 @@ export const ParticipantsModal = ({
     }
     onChange(value);
   };
+
+  useEffect(() => {
+    if (!isEdit) {
+      if (isOpen) {
+        if (fields.length === 0) {
+          append({
+            name: '',
+            value: '',
+          });
+        }
+      } else {
+        fields.map((_, index) => {
+          remove(index);
+        });
+      }
+      formHelper.reset();
+    }
+  }, [isOpen]);
 
   return (
     <S.Modal
@@ -210,15 +212,12 @@ export const ParticipantsModal = ({
                   />
                 </S.FillValueButtonsContainer>
 
-                {(index > 0 && !isEdit) ||
-                  (isEdit && (
-                    <S.RemoveItemButton
-                      onClick={() => handleDeleteParticipant(index, field.id)}
-                    >
-                      <FiTrash2 color={theme.colors.red} size={20} />
-                      Excluir participante
-                    </S.RemoveItemButton>
-                  ))}
+                <S.RemoveItemButton
+                  onClick={() => handleDeleteParticipant(index, field.id)}
+                >
+                  <FiTrash2 color={theme.colors.red} size={20} />
+                  Excluir participante
+                </S.RemoveItemButton>
               </S.InputGroupContainer>
             ))}
             <S.AddParticipantsText

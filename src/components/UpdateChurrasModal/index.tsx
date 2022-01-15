@@ -44,7 +44,7 @@ export const UpdateChurrasModal = ({
       suggest_value: churrasInfo.suggest_value,
       suggest_drink_value: churrasInfo.suggest_drink_value,
     });
-  }, [churrasInfo, isOpen]);
+  }, [churrasInfo]);
 
   const handleDeleteParticipants = (id: string) => {
     if (churrasInfo.participants.find((participant) => participant.id === id)) {
@@ -67,6 +67,7 @@ export const UpdateChurrasModal = ({
         };
       }
     });
+
     await updateChurras({
       id: churrasInfo.id,
       title: data.title,
