@@ -35,3 +35,8 @@ export const ContentContainer = styled.div`
     margin: -4.5rem auto 0;
   `}
 `;
+
+export const LogoImage = styled.div`
+  margin: 0 auto;
+  padding: 1.5rem 0 0.5rem;
+`;

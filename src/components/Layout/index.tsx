@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Head from 'next/head';
+import Image from 'next/image';
 
 import { Header } from 'components/Header';
 
@@ -29,6 +30,9 @@ export const Layout = ({
       <Header title={title} headerHeight={headerHeight} />
       <S.WrapperContainer bgColor={wrapperBackground}>
         <S.ContentContainer>{children}</S.ContentContainer>
+        <S.LogoImage>
+          <Image src="/logo.svg" width={50} height={50} />
+        </S.LogoImage>
       </S.WrapperContainer>
     </S.Container>
   );
