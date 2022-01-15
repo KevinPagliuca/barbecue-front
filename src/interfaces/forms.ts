@@ -29,7 +29,7 @@ export interface ICreateChurrasFormData {
   location: string;
   description: string;
   suggest_value: string;
-  suggest_value_drink: string;
+  suggest_drink_value: string;
   participants: {
     name: string;
     value: string;
@@ -43,7 +43,7 @@ export interface IUpdateChurrasFormData {
   location: string;
   description: string;
   suggest_value: string;
-  suggest_value_drink: string;
+  suggest_drink_value: string;
   participants: {
     id?: string;
     name: string;

@@ -1,6 +1,11 @@
+import { useRef } from 'react';
+
 import { ChurrasDetailBox } from 'components/ChurrasDetailBox';
 import { Layout } from 'components/Layout';
-import { UpdateChurrasFloatButton } from 'components/UpdateChurrasFloatButton';
+import {
+  FloatButtonUpdateRefHandles,
+  UpdateChurrasFloatButton,
+} from 'components/UpdateChurrasFloatButton';
 import { useAuth } from 'contexts/AuthContext';
 import { theme } from 'global/theme';
 import { useChurrasById } from 'hooks/useChurras';
@@ -20,12 +25,17 @@ export default function ChurrasDetails({
   churrasId,
 }: ChurrasDetailsProps) {
   const { user } = useAuth();
+  const updateChurrasBtnRef = useRef<FloatButtonUpdateRefHandles>(null);
   const { churras: data } = useChurrasById({
     id: churrasId,
     options: {
       initialData: churras,
     },
   });
+
+  const handleOpenParticipantsModal = () => {
+    updateChurrasBtnRef.current?.handleClick(true);
+  };
 
   return (
     <Layout
@@ -34,10 +44,14 @@ export default function ChurrasDetails({
       wrapperBackground={theme.colors.background}
     >
       <S.Container>
-        <ChurrasDetailBox churras={data} />
+        <ChurrasDetailBox
+          churras={data}
+          handleOpenParticipantsModal={handleOpenParticipantsModal}
+        />
       </S.Container>
-
-      {user?.id === data.user_id && <UpdateChurrasFloatButton churras={data} />}
+      {user?.id === data.user_id && (
+        <UpdateChurrasFloatButton churras={data} ref={updateChurrasBtnRef} />
+      )}
     </Layout>
   );
 }

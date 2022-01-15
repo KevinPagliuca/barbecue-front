@@ -5,6 +5,7 @@ import { FiX } from 'react-icons/fi';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Button } from 'components/Button';
 import { ChurrasForm } from 'components/Forms/ChurrasForm';
+import { ParticipantsModal } from 'components/ParticipantsModal';
 import { format } from 'date-fns';
 import { useUpdateChurras } from 'hooks/useChurras';
 import { IChurras } from 'interfaces/churras';
@@ -17,30 +18,33 @@ interface UpdateChurrasModalProps {
   isOpen: boolean;
   onRequestClose: () => void;
   churrasInfo: IChurras;
+  openParticipantsModal: boolean;
 }
 export const UpdateChurrasModal = ({
   isOpen,
   onRequestClose,
   churrasInfo,
+  openParticipantsModal,
 }: UpdateChurrasModalProps) => {
   const [deletedParticipants, setDeletedParticipants] = useState<string[]>([]);
   const { updateChurras } = useUpdateChurras();
 
-  const { control, formState, handleSubmit, reset } =
-    useForm<IUpdateChurrasFormData>({
-      resolver: yupResolver(churrasFormSchema),
-    });
+  const RHFuseForm = useForm<IUpdateChurrasFormData>({
+    resolver: yupResolver(churrasFormSchema),
+  });
 
   useEffect(() => {
-    reset({
+    RHFuseForm.reset({
       title: churrasInfo.title,
       description: churrasInfo.description,
       date: format(new Date(churrasInfo.date), 'yyyy-MM-dd'),
       location: churrasInfo.location,
       hour: churrasInfo.hour,
       participants: churrasInfo.participants,
+      suggest_value: churrasInfo.suggest_value,
+      suggest_drink_value: churrasInfo.suggest_drink_value,
     });
-  }, [churrasInfo]);
+  }, [churrasInfo, isOpen]);
 
   const handleDeleteParticipants = (id: string) => {
     if (churrasInfo.participants.find((participant) => participant.id === id)) {
@@ -72,7 +76,13 @@ export const UpdateChurrasModal = ({
       location: data.location,
       participants: newParticipants,
       deleted_participants: deletedParticipants,
+      suggest_drink_value: data.suggest_drink_value,
+      suggest_value: data.suggest_value,
     });
+    onRequestClose();
+  };
+
+  const handleCloseParticipantsModal = () => {
     onRequestClose();
   };
 
@@ -82,21 +92,30 @@ export const UpdateChurrasModal = ({
       onRequestClose={onRequestClose}
       bodyOpenClassName="modal-open"
       shouldCloseOnOverlayClick
+      shouldVisible={!openParticipantsModal}
     >
+      <ParticipantsModal
+        isOpen={openParticipantsModal}
+        onRequestClose={handleCloseParticipantsModal}
+        useForm={RHFuseForm}
+        setDeletedParticipants={handleDeleteParticipants}
+        onSubmit={onSubmit}
+        isEdit
+      />
       <S.ScrollView>
         <S.ModalContent>
           <S.ModalHeader>
             <h1>Editar churras</h1>
             <FiX size={30} onClick={onRequestClose} />
           </S.ModalHeader>
-          <S.ModalBody onSubmit={handleSubmit(onSubmit)}>
+          <S.ModalBody onSubmit={RHFuseForm.handleSubmit(onSubmit)}>
             <ChurrasForm
-              control={control}
-              formState={formState}
-              isEdit
-              setDeletedParticipants={handleDeleteParticipants}
+              control={RHFuseForm.control}
+              formState={RHFuseForm.formState}
             />
-            <Button type="submit">Salvar</Button>
+            <Button type="submit" loading={RHFuseForm.formState.isSubmitting}>
+              Salvar
+            </Button>
           </S.ModalBody>
         </S.ModalContent>
       </S.ScrollView>

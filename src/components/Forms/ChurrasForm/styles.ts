@@ -1,14 +1,18 @@
 import styled, { css } from 'styled-components';
 
+interface InputContainerProps {
+  error?: boolean;
+}
+
 export const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
 `;
 
-export const InputContainer = styled.div`
+export const InputContainer = styled.div<InputContainerProps>`
   display: flex;
   flex-direction: column;
-  margin-bottom: 1.25rem;
+  margin-bottom: 1rem;
   width: 100%;
 
   &.group-1 {
@@ -25,6 +29,12 @@ export const InputContainer = styled.div`
   &.left {
     padding-left: 0.5rem;
   }
+
+  ${({ error }) =>
+    error &&
+    css`
+      margin-bottom: 0;
+    `}
 `;
 
 export const SectionTitle = styled.h1`

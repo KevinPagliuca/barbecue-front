@@ -18,9 +18,13 @@ import * as S from './styles';
 
 interface ChurrasDetailBoxProps {
   churras: IChurras;
+  handleOpenParticipantsModal: () => void;
 }
 
-export const ChurrasDetailBox = ({ churras }: ChurrasDetailBoxProps) => {
+export const ChurrasDetailBox = ({
+  churras,
+  handleOpenParticipantsModal,
+}: ChurrasDetailBoxProps) => {
   const { user } = useAuth();
   const { deleteChurras } = useDeleteChurras();
   const valueTotalRaised = churras.participants.reduce(
@@ -72,6 +76,7 @@ export const ChurrasDetailBox = ({ churras }: ChurrasDetailBoxProps) => {
         </S.DateAndLocationContainer>
 
         <S.ParticipantsContainer>
+          <h1>Participantes</h1>
           {churras.participants.map((participant) => (
             <div key={participant.id}>
               <ParticipantItem
@@ -80,11 +85,21 @@ export const ChurrasDetailBox = ({ churras }: ChurrasDetailBoxProps) => {
               />
             </div>
           ))}
+          {churras.participants.length === 0 && (
+            <h3>Sem participantes por enquanto!</h3>
+          )}
         </S.ParticipantsContainer>
-        {user.id === churras.user_id && (
-          <S.DeleteChurrasButton onClick={() => setConfirmationModalOpen(true)}>
-            Excluir Churras
-          </S.DeleteChurrasButton>
+        {user?.id === churras.user_id && (
+          <S.ButtonActionsContainer>
+            <S.ParticipantsButton onClick={handleOpenParticipantsModal}>
+              Adicionar/Excluir participantes
+            </S.ParticipantsButton>
+            <S.DeleteChurrasButton
+              onClick={() => setConfirmationModalOpen(true)}
+            >
+              Excluir Churras
+            </S.DeleteChurrasButton>
+          </S.ButtonActionsContainer>
         )}
       </S.ContentContainer>
     </S.Container>

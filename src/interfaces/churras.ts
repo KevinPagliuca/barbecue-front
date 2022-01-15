@@ -6,6 +6,8 @@ export interface IChurras {
   hour: string;
   location: string;
   user_id: string;
+  suggest_value: string;
+  suggest_drink_value: string;
   participants: {
     id: string;
     name: string;
@@ -26,6 +28,8 @@ export interface ICreateChurrasRequestDTO {
   hour: string;
   location: string;
   description: string;
+  suggest_value: string;
+  suggest_drink_value: string;
   participants?: {
     name: string;
     value: string;
@@ -41,6 +45,8 @@ export type IUpdateChurrasRequestDTO = {
   id: string;
   title: string;
   description: string;
+  suggest_value: string;
+  suggest_drink_value: string;
   date: string;
   hour: string;
   location: string;

@@ -95,7 +95,7 @@ export const ParticipantsModal = ({
       trigger(`participants.${index}.value`);
     }
     if (value === 'suggest_drink') {
-      setValue(`participants.${index}.value`, watch('suggest_value_drink'));
+      setValue(`participants.${index}.value`, watch('suggest_drink_value'));
       trigger(`participants.${index}.value`);
     }
     onChange(value);
@@ -111,7 +111,7 @@ export const ParticipantsModal = ({
       <S.ScrollView>
         <S.ModalContent>
           <S.ModalHeader>
-            <h1>Adicionar participantes</h1>
+            <h1>Adicionar{isEdit && '/Editar '} participantes</h1>
             <FiX size={30} onClick={onRequestClose} />
           </S.ModalHeader>
 
@@ -127,7 +127,13 @@ export const ParticipantsModal = ({
                     )}
                   />
                 )}
-                <S.InputContainer>
+                <S.InputContainer
+                  className={
+                    errors.participants && errors?.participants[index]?.name
+                      ? 'errored'
+                      : undefined
+                  }
+                >
                   <Controller
                     control={control}
                     name={`participants.${index}.name`}
@@ -204,22 +210,26 @@ export const ParticipantsModal = ({
                   />
                 </S.FillValueButtonsContainer>
 
-                <S.RemoveItemButton
-                  onClick={() => handleDeleteParticipant(index, field.id)}
-                >
-                  <FiTrash2 color={theme.colors.red} size={20} />
-                  Excluir participante
-                </S.RemoveItemButton>
+                {(index > 0 && !isEdit) ||
+                  (isEdit && (
+                    <S.RemoveItemButton
+                      onClick={() => handleDeleteParticipant(index, field.id)}
+                    >
+                      <FiTrash2 color={theme.colors.red} size={20} />
+                      Excluir participante
+                    </S.RemoveItemButton>
+                  ))}
               </S.InputGroupContainer>
             ))}
             <S.AddParticipantsText
               onClick={() => append({ name: '', value: '' })}
+              className={fields.length === 0 ? 'center' : undefined}
             >
               <FiPlusCircle size={20} />
               Adicionar participante
             </S.AddParticipantsText>
             <Button type="submit" loading={isSubmitting}>
-              Cadastrar
+              {!isEdit ? 'Cadastrar' : 'Salvar'}
             </Button>
             <Button
               type="button"

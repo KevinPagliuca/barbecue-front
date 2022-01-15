@@ -90,17 +90,28 @@ export const Location = styled.p`
 `;
 
 export const ParticipantsContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin: 1rem 0;
+  ${({ theme }) => css`
+    display: flex;
+    flex-direction: column;
+    margin: 1rem 0;
 
-  h1 {
-    ${({ theme }) => css`
+    h1 {
       font: 700 1.25rem ${theme.fonts.titles};
-      color: ${theme.colors.gray};
+      color: ${theme.colors.titles};
       margin-bottom: 1rem;
-    `}
-  }
+    }
+
+    h3 {
+      font: 400 1rem ${theme.fonts.texts};
+      color: ${theme.colors.gray};
+    }
+  `}
+`;
+
+export const ButtonActionsContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 `;
 
 export const AddParticipantsText = styled.span`
@@ -123,7 +134,20 @@ export const DeleteChurrasButton = styled.span`
   ${({ theme }) => css`
     font: 500 1rem ${theme.fonts.titles};
     color: ${theme.colors.red};
-    margin-left: auto;
+    cursor: pointer;
+    transition: all 0.15s;
+
+    &:hover {
+      text-decoration: underline;
+      filter: brightness(0.7);
+    }
+  `}
+`;
+
+export const ParticipantsButton = styled.span`
+  ${({ theme }) => css`
+    font: 500 1rem ${theme.fonts.titles};
+    color: ${theme.colors.blue};
     cursor: pointer;
     transition: all 0.15s;
 

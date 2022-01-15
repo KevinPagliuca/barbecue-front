@@ -8,7 +8,7 @@ interface IFormValue {
     | 'date'
     | 'hour'
     | 'location'
-    | 'suggest_value_drink'
+    | 'suggest_drink_value'
     | 'suggest_value';
   type: 'text' | 'date' | 'time' | 'number';
   min?: string;
@@ -50,14 +50,14 @@ export const formValues: IFormValue[] = [
     id: 'churras-suggest-value',
     name: 'suggest_value',
     type: 'number',
-    placeholder: 'Valor',
+    placeholder: 'Valor sugerido',
     className: 'group-2 right',
   },
   {
     id: 'churras-suggest-value-drink',
-    name: 'suggest_value_drink',
+    name: 'suggest_drink_value',
     type: 'number',
-    placeholder: 'Valor com bebida',
+    placeholder: 'Valor sug. com bebida',
     className: 'group-2 left',
   },
   {

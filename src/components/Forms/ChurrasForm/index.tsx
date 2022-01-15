@@ -27,7 +27,10 @@ export const ChurrasForm = ({
           control={control}
           name={item.name}
           render={({ field: { value, onChange } }) => (
-            <S.InputContainer className={item?.className}>
+            <S.InputContainer
+              className={item?.className}
+              error={!!errors[item.name] && !!item?.className}
+            >
               {item.name !== 'description' ? (
                 <TextField
                   id={item.id}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { FiX } from 'react-icons/fi';
 
@@ -48,6 +48,10 @@ export const AddChurrasModal = ({
     RHFuseForm.setValue('participants', []);
     setParticipantModalOpen(false);
   };
+
+  useEffect(() => {
+    RHFuseForm.reset();
+  }, [isOpen]);
 
   return (
     <S.Modal

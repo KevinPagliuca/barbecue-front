@@ -1,4 +1,9 @@
-import React, { useState } from 'react';
+import React, {
+  useImperativeHandle,
+  useState,
+  ForwardRefRenderFunction as FR,
+  forwardRef,
+} from 'react';
 import { FiSettings } from 'react-icons/fi';
 
 import { UpdateChurrasModal } from 'components/UpdateChurrasModal';
@@ -10,10 +15,33 @@ interface UpdateChurrasFloatButtonProps {
   churras: IChurras;
 }
 
-export const UpdateChurrasFloatButton = ({
-  churras,
-}: UpdateChurrasFloatButtonProps) => {
+export interface FloatButtonUpdateRefHandles {
+  handleClick: (openParticipants: boolean) => void;
+}
+
+const UpdateChurrasFloatButtonBase: FR<
+  FloatButtonUpdateRefHandles,
+  UpdateChurrasFloatButtonProps
+> = ({ churras }, ref) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [participantsOpen, setParticipantsOpen] = useState(false);
+
+  useImperativeHandle(ref, () => {
+    return {
+      handleClick,
+    };
+  });
+
+  const handleClick = (participants: boolean) => {
+    setIsOpen(true);
+    setParticipantsOpen(participants);
+  };
+
+  const handleCloseUpdateModal = () => {
+    setIsOpen(false);
+    setParticipantsOpen(false);
+  };
+
   return (
     <>
       <S.Container onClick={() => setIsOpen(true)} id="updateChurrasBtn">
@@ -23,9 +51,14 @@ export const UpdateChurrasFloatButton = ({
 
       <UpdateChurrasModal
         isOpen={isOpen}
-        onRequestClose={() => setIsOpen(false)}
+        onRequestClose={handleCloseUpdateModal}
         churrasInfo={churras}
+        openParticipantsModal={participantsOpen}
       />
     </>
   );
 };
+
+export const UpdateChurrasFloatButton = forwardRef(
+  UpdateChurrasFloatButtonBase
+);

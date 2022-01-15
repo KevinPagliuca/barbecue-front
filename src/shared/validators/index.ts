@@ -43,6 +43,10 @@ export const churrasFormSchema = yup.object().shape({
   date: yup.string().required('A data é obrigatória'),
   hour: yup.string().required('O hora é obrigatória'),
   location: yup.string().required('O local é obrigatório'),
+  suggest_value: yup.string().required('O valor sugerido é obrigatório'),
+  suggest_drink_value: yup
+    .string()
+    .required('O valor sugerido com bebida é obrigatório'),
   description: yup.string(),
   participants: yup.array().of(
     yup.object().shape({

@@ -86,6 +86,10 @@ export const InputContainer = styled.div`
   flex-direction: column;
   width: 100%;
   margin-bottom: 1rem;
+
+  &.errored {
+    margin-bottom: 0.25rem;
+  }
 `;
 
 export const InputGroupContainer = styled.div`
@@ -137,6 +141,11 @@ export const AddParticipantsText = styled.span`
     margin-left: auto;
     margin-bottom: 1rem;
     transition: all 0.15s;
+
+    &.center {
+      margin-left: 0;
+      justify-content: center;
+    }
 
     svg {
       margin-right: 0.25rem;
