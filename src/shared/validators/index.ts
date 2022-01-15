@@ -16,7 +16,10 @@ export const userSignUpFormSchema = yup.object().shape({
     .string()
     .email('E-mail inválido')
     .required('O e-mail é obrigatório'),
-  password: yup.string().required('A senha é obrigatória'),
+  password: yup
+    .string()
+    .required('A senha é obrigatória')
+    .min(6, 'Mínimo de 6 caracteres'),
   password_confirmation: yup
     .string()
     .oneOf([yup.ref('password'), null], 'As senhas não conferem'),
@@ -32,7 +35,10 @@ export const userUpdateFormSchema = yup.object().shape({
 });
 
 export const userChangePasswordFormSchema = yup.object().shape({
-  password: yup.string().required('A senha é obrigatória'),
+  password: yup
+    .string()
+    .required('A senha é obrigatória')
+    .min(6, 'Mínimo de 6 caracteres'),
   password_confirmation: yup
     .string()
     .oneOf([yup.ref('password'), null], 'As senhas não conferem'),

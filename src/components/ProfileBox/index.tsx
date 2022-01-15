@@ -67,7 +67,10 @@ export const ProfileBox = () => {
   ) => {
     try {
       await authService.changePassword(data);
-      passReset();
+      passReset({
+        password: '',
+        password_confirmation: '',
+      });
       toast.success('Senha alterada com sucesso!');
     } catch (err) {
       const error = err as AxiosError;

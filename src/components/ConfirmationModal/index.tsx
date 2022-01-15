@@ -42,9 +42,8 @@ export const ConfirmationModal = ({
   const handleCancel = async () => {
     if (onCancel) {
       await onCancel();
-      onRequestClose();
     }
-    return;
+    onRequestClose();
   };
 
   return (
