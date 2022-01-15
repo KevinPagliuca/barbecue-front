@@ -28,6 +28,8 @@ export interface ICreateChurrasFormData {
   hour: string;
   location: string;
   description: string;
+  suggest_value: string;
+  suggest_value_drink: string;
   participants: {
     name: string;
     value: string;
@@ -40,6 +42,8 @@ export interface IUpdateChurrasFormData {
   hour: string;
   location: string;
   description: string;
+  suggest_value: string;
+  suggest_value_drink: string;
   participants: {
     id?: string;
     name: string;

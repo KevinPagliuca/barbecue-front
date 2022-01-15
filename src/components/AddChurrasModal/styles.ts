@@ -20,9 +20,18 @@ const customStyles: Styles = {
 
 ModalBase.setAppElement('#__next');
 
+interface ModalStyleProps {
+  shouldVisible: boolean;
+}
+
 export const Modal = styled(ModalBase).attrs({
   style: customStyles,
-})``;
+})<ModalStyleProps>`
+  ${({ shouldVisible }) => css`
+    visibility: ${shouldVisible ? 'visible' : 'hidden'};
+    opacity: ${shouldVisible ? 1 : 0};
+  `}
+`;
 
 export const ScrollView = styled.div`
   ${({ theme }) => css`

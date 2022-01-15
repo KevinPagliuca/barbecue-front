@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { FieldError } from 'react-hook-form';
 
 import * as S from './styles';
@@ -19,8 +19,15 @@ export const TextField = ({
   mask,
   ...rest
 }: InputProps) => {
+  const errorMessageRef = useRef<HTMLDivElement>();
+
   return (
-    <S.Container error={!!error} maxWidth={maxWidth}>
+    <S.Container
+      error={!!error}
+      maxWidth={maxWidth}
+      readOnly={!!rest.readOnly}
+      errorHeight={errorMessageRef.current?.offsetHeight}
+    >
       {mask ? (
         <S.InputStyledWithMask
           mask={mask}
@@ -41,7 +48,10 @@ export const TextField = ({
       >
         {label}
       </legend>
-      <S.ErrorMessage className={!!error ? 'show' : undefined}>
+      <S.ErrorMessage
+        className={!!error ? 'show' : undefined}
+        ref={errorMessageRef}
+      >
         {error?.message}
       </S.ErrorMessage>
     </S.Container>

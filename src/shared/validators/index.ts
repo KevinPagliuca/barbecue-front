@@ -41,13 +41,16 @@ export const userChangePasswordFormSchema = yup.object().shape({
 export const churrasFormSchema = yup.object().shape({
   title: yup.string().required('O título é obrigatório'),
   date: yup.string().required('A data é obrigatória'),
-  hour: yup.string().required('O horário é obrigatório'),
+  hour: yup.string().required('O hora é obrigatória'),
   location: yup.string().required('O local é obrigatório'),
   description: yup.string(),
   participants: yup.array().of(
     yup.object().shape({
       name: yup.string().required('O nome é obrigatório'),
-      value: yup.number().required('O valor é obrigatório'),
+      value: yup
+        .number()
+        .typeError('O valor é obrigatório')
+        .required('O valor é obrigatório'),
     })
   ),
 });

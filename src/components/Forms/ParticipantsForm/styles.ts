@@ -1,10 +1,9 @@
 import styled, { css } from 'styled-components';
 
-export const Container = styled.div`
+export const MainContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
 `;
-
 export const InputContainer = styled.div`
   display: flex;
   flex-direction: column;

@@ -2,13 +2,18 @@ import { format, add } from 'date-fns';
 
 interface IFormValue {
   id: string;
-  name: 'title' | 'description' | 'date' | 'hour' | 'location';
-  type: 'text' | 'date' | 'time';
-  mask?: string;
+  name:
+    | 'title'
+    | 'description'
+    | 'date'
+    | 'hour'
+    | 'location'
+    | 'suggest_value_drink'
+    | 'suggest_value';
+  type: 'text' | 'date' | 'time' | 'number';
   min?: string;
   max?: string;
-  required?: boolean;
-  className?: 'w-50';
+  className?: string;
   placeholder: string;
 }
 
@@ -17,7 +22,6 @@ export const formValues: IFormValue[] = [
     id: 'churras-title',
     name: 'title',
     type: 'text',
-    required: true,
     placeholder: 'Título do churras',
   },
   {
@@ -25,7 +29,7 @@ export const formValues: IFormValue[] = [
     name: 'date',
     type: 'date',
     placeholder: 'Data',
-    className: 'w-50',
+    className: 'group-2 right',
     min: format(
       add(new Date(), {
         days: 1,
@@ -33,21 +37,34 @@ export const formValues: IFormValue[] = [
       'yyyy-MM-dd'
     ),
     max: '2030-12-31',
-    required: true,
   },
   {
     id: 'churras-time',
     name: 'hour',
     type: 'time',
-    className: 'w-50',
-    required: true,
+    className: 'group-1 left',
+
     placeholder: 'Hora de início',
+  },
+  {
+    id: 'churras-suggest-value',
+    name: 'suggest_value',
+    type: 'number',
+    placeholder: 'Valor',
+    className: 'group-2 right',
+  },
+  {
+    id: 'churras-suggest-value-drink',
+    name: 'suggest_value_drink',
+    type: 'number',
+    placeholder: 'Valor com bebida',
+    className: 'group-2 left',
   },
   {
     id: 'churras-location',
     name: 'location',
     type: 'text',
-    required: true,
+
     placeholder: 'Local',
   },
   {

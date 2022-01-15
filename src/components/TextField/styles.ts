@@ -1,5 +1,6 @@
 import InputMask from 'react-input-mask';
 
+import { darken } from 'polished';
 import styled, { css } from 'styled-components';
 
 interface InputPlaceholderProps {
@@ -9,6 +10,8 @@ interface InputPlaceholderProps {
 interface ContainerProps {
   error?: boolean;
   maxWidth?: string;
+  readOnly?: boolean;
+  errorHeight?: number;
 }
 
 const InputStyles = css`
@@ -16,6 +19,7 @@ const InputStyles = css`
     width: 100%;
     height: 100%;
     min-height: 2.75rem;
+    max-height: 2.75rem;
     padding: 0.5rem 1rem;
 
     font-size: 1rem;
@@ -77,14 +81,16 @@ const InputStyles = css`
 `;
 
 export const Container = styled.fieldset<ContainerProps>`
-  ${({ theme, error, maxWidth }) => css`
+  ${({ theme, error, maxWidth, readOnly, errorHeight }) => css`
     ${maxWidth && `max-width: ${maxWidth}`};
 
     display: flex;
     align-items: center;
+    flex-direction: column;
     position: relative;
 
     height: 100%;
+    max-height: 3rem;
     font-family: ${theme.fonts.texts};
     background: ${theme.colors.white};
     border: 2px solid ${theme.colors.black};
@@ -99,7 +105,7 @@ export const Container = styled.fieldset<ContainerProps>`
 
     ${error &&
     css`
-      margin-bottom: 0.75rem;
+      margin-bottom: ${errorHeight ? `${errorHeight + 4}px` : '0.75rem'};
       border-color: ${theme.colors.red};
 
       &:focus-within {
@@ -114,6 +120,16 @@ export const Container = styled.fieldset<ContainerProps>`
         color: ${theme.colors.red};
       }
     `};
+
+    ${readOnly &&
+    css`
+      border-color: ${theme.colors.gray};
+      background: ${darken(0.05, theme.colors.white)};
+
+      &:focus-within {
+        border-color: ${theme.colors.black};
+      }
+    `}
   `}
 `;
 
@@ -163,8 +179,10 @@ export const ErrorMessage = styled.div`
     font-size: 0.875rem;
     line-height: 0.875rem;
     font-weight: 400;
-    position: absolute;
-    bottom: -1.25rem;
+    /* position: absolute;
+    bottom: -1.25rem; */
+    width: 100%;
+    padding-top: 0.25rem;
     opacity: 0;
     left: 0;
     visibility: hidden;

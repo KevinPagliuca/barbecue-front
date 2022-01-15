@@ -10,7 +10,8 @@ interface ConfirmationModalProps {
   onRequestClose: () => void;
   message?: string;
   title?: string;
-  onConfirm: () => Promise<void>;
+  onConfirm: () => Promise<void> | void;
+  onCancel?: () => Promise<void> | void;
   confirmText?: string;
   cancelText?: string;
 }
@@ -19,6 +20,7 @@ export const ConfirmationModal = ({
   onRequestClose,
   message,
   onConfirm,
+  onCancel,
   title = 'Confirmar ação',
   confirmText = 'Sim',
   cancelText = 'Não',
@@ -35,6 +37,14 @@ export const ConfirmationModal = ({
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleCancel = async () => {
+    if (onCancel) {
+      await onCancel();
+      onRequestClose();
+    }
+    return;
   };
 
   return (
@@ -61,7 +71,7 @@ export const ConfirmationModal = ({
           </Button>
           <Button
             type="button"
-            onClick={onRequestClose}
+            onClick={handleCancel}
             variant={ButtonVariants.RED}
             disabled={isLoading}
           >
